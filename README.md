@@ -6,7 +6,9 @@ File naming conventions are the unsung heroes of the video production industry.
 
 YYYY-MM-DD_TITLE
 
-# Folder Structure
+-----------------------------------
+
+# Video Folder Structure
 
 YYYY-MM_TITLE
 
@@ -20,3 +22,14 @@ YYYY-MM_TITLE
 # Video File Naming Convention
 
 PROJECT_SHOOT_###
+
+------------------------------------
+
+# Lightroom Structure
+
+- YYYY-MM_TITLE
+	- 01_RAW
+	- 02_METADATA
+	- 03_EXPORT
+
+------------------------------------
