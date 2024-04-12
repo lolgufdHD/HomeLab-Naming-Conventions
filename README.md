@@ -6,18 +6,16 @@ File naming conventions are the unsung heroes of the video production industry.
 
 YYYY-MM-DD_TITLE
 
-# Video Folder Structure
+# Videoproject Folder Structure
 
-YYYY-MM_TITLE
-
-- Root Folder
+- YYYY-MM_TITLE
   - 01_Footage
   - 02_Audio
   - 03_Music
   - 04_Assets
   - 05_Exports
 
-# Video File Naming Convention
+## Video File Naming Convention
 
 PROJECT_SHOOT_###
 
