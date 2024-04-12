@@ -1,6 +1,7 @@
 # File-Naming-Conventions
 
-File naming conventions are the unsung heroes of the video production industry.
+File naming conventions for my Personal Homelab because I couldn't find good existing documentation for this sort of application. 
+This makes it easier to sort and find Files. You can copy mine or ajust them how you like.
 
 # General Naming Convention
 
