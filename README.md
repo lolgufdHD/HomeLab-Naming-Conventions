@@ -11,7 +11,7 @@ YYYY-MM-DD_TITLE
 
 - YYYY-MM_TITLE
   - 01_Footage
-  - 02_Audio
+  - 02_SFX
   - 03_Music
   - 04_Assets
   - 05_Exports
