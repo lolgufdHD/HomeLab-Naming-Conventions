@@ -5,130 +5,107 @@ Domain used: **`storagevault.me`** (subject to change if needed).
 
 ---
 
-## 📦 Naming Format
 
-[SITE]-[ROLE]-[FUNCTION]-[NUMBER].[DOMAIN]
+- **SITE**: Location or environment (e.g., `HOMELAB`, `RACK01`)
+- **ROLE**: Purpose of the device (e.g., `SRV`, `NAS`, `CTR`, `APP`, `DB`)
+- **FUNCTION**: What the device or service does (e.g., `WEB`, `STOR`, `MEDIA`, `MONITOR`, `DEV`)
+- **SERVICE**: Specific service or app (e.g., `NGINX`, `POSTGRES`, `PLEX`, `K8S`)
+- **INSTANCE**: Instance number (e.g., `01`, `02`, `03`)
+- **DOMAIN**: Main domain (e.g., `storagevault.me`)
 
-
-| Field    | Example                                 | Notes                                                                   |
-| -------- | --------------------------------------- | ----------------------------------------------------------------------- |
-| Site     | `HOMELAB`, `RACK01`                     | Optional for future multi-location expansion.                           |
-| Role     | `SRV`, `NAS`, `CTR`                     | `SRV` = General server, `NAS` = Storage server, `CTR` = Container host. |
-| Function | `MEDIA`, `STOR`, `WEB`, `DB`, `CORE`    | Describes what the server or service does.                              |
-| Number   | `01`, `02`                              | Increments with multiple instances.                                     |
-| Domain   | `storagevault.me` or alternative domain |                                                                         |
-## 🖥 TrueNAS Naming
-
-**Main NAS Hostname:**
-
-HOMELAB-NAS-STOR-01.storagevault.me
-
-**Storage Pools:**
-
-- `pool-media`
-    
-- `pool-backup`
-    
-- `pool-vm`
-    
-- `pool-archive`
-    
-
-**Datasets/Shares:**
-
-- `dataset-media-movies`
-    
-- `dataset-media-tv`
-    
-- `dataset-backups-pc`
-    
-- `dataset-vm-images`
-    
-
-**Snapshots:**
-
-- `snap-datasetname-daily-YYYYMMDD`
-    
-- `snap-datasetname-weekly-YYYYMMDD`
-
-## 🐳 Portainer Servers Naming
-
-**First Portainer Server:**
-
-HOMELAB-CTR-CORE-01.storagevault.me
-
-Second Portainer Server:
-
-HOMELAB-CTR-CORE-02.storagevault.me
-
-**Docker Containers inside Portainer:**
-
-- `srv-web-nginx-01`
-    
-- `srv-db-postgres-01`
-    
-- `srv-app-homeassistant-01`
-    
-- `srv-app-plex-01`
-    
-
-**Stacks:**
-
-- `stack-monitoring`
-    
-- `stack-homeautomation`
-    
-- `stack-webapps`
-
-## 🌐 Domain and Subdomain Structure
-
-**Primary Domain:** `storagevault.me`
-
-**Suggested Subdomains:**
-
-- `nas.storagevault.me` - Access to TrueNAS UI
-    
-- `portainer.storagevault.me` - Access to Portainer management
-    
-- `cloud.storagevault.me` - Cloud services
-    
-- `apps.storagevault.me` - Web applications
-    
-
-**Alternate Domain Ideas (optional if expanding beyond storage):**
-
-- `vaultlab.me`
-    
-- `hivevault.net`
-    
-- `nexuslab.io`
-    
-- `bytevault.net`
-    
-- `labvault.io`
-    
+> **Example:** `HOMELAB-NAS-STOR-01.storagevault.me`
 
 ---
 
-## 📜 Quick Reference Table
+## 🖥 Server and Service Naming Examples
 
-|Server/Service|Hostname|Notes|
-|---|---|---|
-|TrueNAS Main|`HOMELAB-NAS-STOR-01.storagevault.me`|Storage server|
-|Portainer #1|`HOMELAB-CTR-CORE-01.storagevault.me`|Main container server|
-|Portainer #2|`HOMELAB-CTR-CORE-02.storagevault.me`|Secondary container server|
-|NGINX container|`srv-web-nginx-01`|Reverse proxy|
-|Postgres DB container|`srv-db-postgres-01`|Database backend|
-|Home Assistant Stack|`stack-homeautomation`|Smart home automation|
-# ✅ Notes
+| Purpose                  | Example Hostname                         | Notes                          |
+|---------------------------|------------------------------------------|--------------------------------|
+| TrueNAS Storage Server    | `HOMELAB-NAS-STOR-01.storagevault.me`     | Main storage unit              |
+| Portainer Main Server     | `HOMELAB-CTR-CORE-01.storagevault.me`     | Manages containers             |
+| Second Portainer Server   | `HOMELAB-CTR-CORE-02.storagevault.me`     | Secondary/backup Portainer     |
+| NGINX Reverse Proxy       | `srv-web-nginx-01.storagevault.me`        | Web reverse proxy container    |
+| Postgres Database         | `srv-db-postgres-01.storagevault.me`      | Database container             |
+| Plex Media Server         | `srv-media-plex-01.storagevault.me`       | Media server container         |
+| Home Assistant            | `srv-app-homeassistant-01.storagevault.me`| Smart home container           |
 
-- Maintain consistent naming across **servers**, **shares**, **containers**, and **stacks**.
-    
-- Avoid abbreviations that are too obscure for easier maintenance.
-    
-- Use leading zeros for numbers to ensure sorting consistency (`01`, `02`, `03`...).
-    
-- Regularly update the README if the structure grows or changes.
+---
+
+## 📂 Storage Naming
+
+For TrueNAS (or similar storage systems):
+
+- **Pools**:
+  - `pool-media`
+  - `pool-backups`
+  - `pool-vm`
+  - `pool-archive`
+
+- **Datasets**:
+  - `dataset-media-movies`
+  - `dataset-backups-pc`
+  - `dataset-vm-images`
+  - `dataset-documents`
+
+- **Snapshots**:
+  - `snap-[datasetname]-daily-YYYYMMDD`
+  - `snap-[datasetname]-weekly-YYYYMMDD`
+
+---
+
+## 🐳 Containers and Stacks
+
+- **Container Naming**:
+  - Follow: `srv-[function]-[service]-[instance]`
+  - Example: `srv-web-nginx-01`
+
+- **Stack Naming (Portainer / Docker Compose)**:
+  - `stack-[function]`
+  - Examples:
+    - `stack-monitoring`
+    - `stack-homeautomation`
+    - `stack-webapps`
+    - `stack-databases`
+
+---
+
+## 🌐 Domain and Subdomain Structure
+
+**Main Domain**: `storagevault.me`
+
+**Common Subdomains**:
+- `nas.storagevault.me` → TrueNAS Web UI
+- `portainer.storagevault.me` → Portainer Management UI
+- `cloud.storagevault.me` → Cloud services (e.g., Nextcloud)
+- `apps.storagevault.me` → Hosted applications
+- `monitoring.storagevault.me` → Grafana/Prometheus dashboards
+
+> Subdomains should map clearly to services or server roles.
+
+---
+
+## ✅ Best Practices
+
+- Keep naming **consistent** across all devices, storage pools, and containers.
+- Use **clear and recognizable names** — prioritize clarity over extreme abbreviation.
+- Use **leading zeros** (`01`, `02`, `03`) to maintain proper sort order.
+- Update the naming guide if your homelab grows or services change.
+- Feel free to adapt the structure slightly depending on project needs (it's a guideline, not a strict rule).
+
+---
+
+# 🔧 Example Full Setup Overview
+
+| Layer            | Name Example                            | Purpose                      |
+|------------------|-----------------------------------------|-------------------------------|
+| Storage Server   | `HOMELAB-NAS-STOR-01.storagevault.me`    | Main TrueNAS server           |
+| Container Server | `HOMELAB-CTR-CORE-01.storagevault.me`    | Portainer container host      |
+| Media Service    | `srv-media-plex-01.storagevault.me`      | Plex container                |
+| Web Service      | `srv-web-nginx-01.storagevault.me`       | Reverse Proxy                 |
+| Database Service | `srv-db-postgres-01.storagevault.me`     | PostgreSQL database container |
+| Automation Stack | `stack-homeautomation`                  | Home Assistant + Node-RED     |
+
+---
 
 
 
