@@ -1,85 +1,89 @@
-# Homelab Serverrack Naming Scheme
+# HomeLab Naming Standard
 
-A standardized and scalable naming convention for the Homelab server rack, including TrueNAS, Portainer servers, and all related services.  
-
----
-
-
-- **SITE**: Location or environment (e.g., `HOMELAB`, `RACK01`)
-- **ROLE**: Purpose of the device (e.g., `SRV`, `NAS`, `CTR`, `APP`, `DB`)
-- **FUNCTION**: What the device or service does (e.g., `WEB`, `STOR`, `MEDIA`, `MONITOR`, `DEV`)
-- **SERVICE**: Specific service or app (e.g., `NGINX`, `POSTGRES`, `PLEX`, `K8S`)
-- **INSTANCE**: Instance number (e.g., `01`, `02`, `03`)
-
-> **Example:** `HOMELAB-NAS-STOR-01`
+## General Rules
+- **Lowercase only** (`truenas`, `pve1`, `vm-db01`)
+- **Use hyphens (-)** to separate words (`app-data`, `docker-vol`)
+- **Keep names short but descriptive**
+- **No special characters** other than hyphens
+- **Environment codes** when necessary (e.g., `prod`, `dev`, `test`)
 
 ---
 
-## 🖥 Server and Service Naming Examples
+## TrueNAS Naming
 
-| Purpose                  | Example Hostname                         | Notes                          |
-|---------------------------|------------------------------------------|--------------------------------|
-| TrueNAS Storage Server    | `HOMELAB-NAS-STOR-01`     | Main storage unit              |
-| Portainer Main Server     | `HOMELAB-CTR-CORE-01`     | Manages containers             |
-| Second Portainer Server   | `HOMELAB-CTR-CORE-02`     | Secondary/backup Portainer     |
-| NGINX Reverse Proxy       | `srv-web-nginx-01`        | Web reverse proxy container    |
-| Postgres Database         | `srv-db-postgres-01`      | Database container             |
-| Plex Media Server         | `srv-media-plex-01`       | Media server container         |
-| Home Assistant            | `srv-app-homeassistant-01`| Smart home container           |
+| Type            | Naming Pattern               | Example         |
+|-----------------|-------------------------------|-----------------|
+| Server Hostname | `truenas-xx`                  | `truenas-main`  |
+| Pool            | `pool-xx`                     | `pool-fast`     |
+| Dataset         | `ds-xx`                       | `ds-backups`    |
+| Zvol            | `zvol-xx`                     | `zvol-vmstorage`|
 
----
-
-## 📂 Storage Naming
-
-For TrueNAS (or similar storage systems):
-
-- **Pools**:
-  - `pool-media`
-  - `pool-backups`
-  - `pool-vm`
-  - `pool-archive`
-
-- **Datasets**:
-  - `dataset-media-movies`
-  - `dataset-backups-pc`
-  - `dataset-vm-images`
-  - `dataset-documents`
-
-- **Snapshots**:
-  - `snap-[datasetname]-daily-YYYYMMDD`
-  - `snap-[datasetname]-weekly-YYYYMMDD`
+> **Notes:**  
+> - Pools describe performance or use (`fast`, `bulk`, `archive`)  
+> - Datasets describe content (`media`, `backups`, `vm-images`)  
+> - Zvols for block storage (e.g., iSCSI, VM disks)
 
 ---
 
-## 🐳 Containers and Stacks
+## Portainer/Docker Naming
 
-- **Container Naming**:
-  - Follow: `srv-[function]-[service]-[instance]`
-  - Example: `srv-web-nginx-01`
+| Type             | Naming Pattern               | Example           |
+|------------------|-------------------------------|-------------------|
+| Server Hostname  | `docker-xx`                   | `docker-main`     |
+| Container Name   | `svc-xx`                      | `svc-pihole`      |
+| Volume Name      | `vol-xx`                      | `vol-pihole-data` |
 
-- **Stack Naming (Portainer / Docker Compose)**:
-  - `stack-[function]`
-  - Examples:
-    - `stack-monitoring`
-    - `stack-homeautomation`
-    - `stack-webapps`
-    - `stack-databases`
+> **Notes:**  
+> - `svc` = service  
+> - `vol` = persistent storage for service data
 
 ---
 
-# 🔧 Example Full Setup Overview
+## Proxmox Naming
 
-| Layer            | Name Example                            | Purpose                      |
-|------------------|-----------------------------------------|-------------------------------|
-| Storage Server   | `HOMELAB-NAS-STOR-01`    | Main TrueNAS server           |
-| Container Server | `HOMELAB-CTR-CORE-01`    | Portainer container host      |
-| Media Service    | `srv-media-plex-01`      | Plex container                |
-| Web Service      | `srv-web-nginx-01`       | Reverse Proxy                 |
-| Database Service | `srv-db-postgres-01`     | PostgreSQL database container |
-| Automation Stack | `stack-homeautomation`                  | Home Assistant + Node-RED     |
+| Type            | Naming Pattern               | Example         |
+|-----------------|-------------------------------|-----------------|
+| Node Name       | `pve-xx`                      | `pve01`          |
+| VM/CT Name      | `vm-xx` / `ct-xx`              | `vm-db01`, `ct-nginx01` |
+| VM/CT Storage   | `store-xx`                    | `store-fast`    |
+| Volume Name     | `vol-xx`                      | `vol-db01-root` |
+
+> **Notes:**  
+> - `vm` = virtual machine  
+> - `ct` = container (LXC)  
+> - `store` = pool or storage backend (local-lvm, ZFS, NFS, etc.)
 
 ---
 
+## UniFi Naming (Future)
+
+| Type             | Naming Pattern               | Example          |
+|------------------|-------------------------------|------------------|
+| Controller       | `unifi-ctrl`                  | `unifi-ctrl`     |
+| Switch           | `switch-xx`                   | `switch-core01`  |
+| AP (Access Point)| `ap-xx`                       | `ap-lr01`        |
+| Gateway          | `gw-xx`                       | `gw-main`        |
+
+> **Notes:**  
+> - Switches/APs based on location (`core01`, `lab01`, `office01`)  
+> - APs can indicate model if needed (`lr`, `nano`, etc.)
+
+---
+
+## Examples
+
+- `truenas-main` hosts `pool-fast`, which has `ds-media`, `ds-backups`, and `zvol-vmstorage`
+- `docker-main` runs `svc-pihole` using volume `vol-pihole-data`
+- `pve01` runs `vm-db01` with storage `store-fast` and disk `vol-db01-root`
+- `unifi-ctrl` manages `switch-core01`, `ap-office01`, and `gw-main`
+
+---
+
+## Future-proofing Tips
+- Reserve numbers for clusters (`pve01`, `pve02`, etc.)
+- Keep pool and volume names generic enough for expansion
+- Use descriptive but short service names for docker containers
+- Name devices based on function and location
 
 
 # File-Naming-Conventions
