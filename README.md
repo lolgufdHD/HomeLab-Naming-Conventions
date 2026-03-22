@@ -11,12 +11,18 @@
 
 ## TrueNAS Naming
 
-| Type            | Naming Pattern               | Example         |
-|-----------------|-------------------------------|-----------------|
-| Server Hostname | `truenas-xx`                  | `truenas-main`  |
-| Pool            | `pool-xx`                     | `pool-fast`     |
-| Dataset         | `ds-xx`                       | `ds-backups`    |
-| Zvol            | `zvol-xx`                     | `zvol-vmstorage`|
+ - Hostname: truenas-main
+	 - Pool: pool-bulk-01 (4x HDD 4TB RaidZ1)
+		 - Dataset: ds-media
+		 - Dataset: ds-plex
+	- Pool: pool-bulk-02 (4x HDD 4TB RaidZ1)
+		- Dataset: ds-backups
+		- Dataset: ds-family
+		- Dataset: ds-gamevault
+	- Pool: pool-fast (2x SSD 1TB Mirror)
+		- Dataset: ds-portainer
+		- Dataset: ds-ix-applications
+		- Dataset: ds-apps
 
 > **Notes:**  
 > - Pools describe performance or use (`fast`, `bulk`, `archive`)  
@@ -36,40 +42,7 @@
 > **Notes:**  
 > - `svc` = service  
 > - `vol` = persistent storage for service data
-
 ---
-
-## Proxmox Naming
-
-| Type            | Naming Pattern               | Example         |
-|-----------------|-------------------------------|-----------------|
-| Node Name       | `pve-xx`                      | `pve01`          |
-| VM/CT Name      | `vm-xx` / `ct-xx`              | `vm-db01`, `ct-nginx01` |
-| VM/CT Storage   | `store-xx`                    | `store-fast`    |
-| Volume Name     | `vol-xx`                      | `vol-db01-root` |
-
-> **Notes:**  
-> - `vm` = virtual machine  
-> - `ct` = container (LXC)  
-> - `store` = pool or storage backend (local-lvm, ZFS, NFS, etc.)
-
----
-
-## UniFi Naming (Future)
-
-| Type             | Naming Pattern               | Example          |
-|------------------|-------------------------------|------------------|
-| Controller       | `unifi-ctrl`                  | `unifi-ctrl`     |
-| Switch           | `switch-xx`                   | `switch-core01`  |
-| AP (Access Point)| `ap-xx`                       | `ap-lr01`        |
-| Gateway          | `gw-xx`                       | `gw-main`        |
-
-> **Notes:**  
-> - Switches/APs based on location (`core01`, `lab01`, `office01`)  
-> - APs can indicate model if needed (`lr`, `nano`, etc.)
-
----
-
 ## Examples
 
 - `truenas-main` hosts `pool-fast`, which has `ds-media`, `ds-backups`, and `zvol-vmstorage`
@@ -79,11 +52,6 @@
 
 ---
 
-## Future-proofing Tips
-- Reserve numbers for clusters (`pve01`, `pve02`, etc.)
-- Keep pool and volume names generic enough for expansion
-- Use descriptive but short service names for docker containers
-- Name devices based on function and location
 
 
 # File-Naming-Conventions
